@@ -1,0 +1,28 @@
+<form >
+  <div  class="example-full-width">
+    <table >
+      <tr>
+        <th>id</th>
+        <th>Username</th>
+        <th>Firts name</th>
+        <th>Second name</th>
+        <th>age</th>
+        <th>Career</th>
+        <th>edit</th>
+        <th>delete</th>
+      </tr>
+      <tr *ngFor="let student of students">
+        <td>{{student.Id}}</td>
+        <td>{{student.Username}}</td>
+        <td>{{student.FirstName}}</td>
+        <td>{{student.SecondName}}</td>
+        <td>{{student.Age}}</td>
+        <td>{{student.Career}}</td>
+        <td><button mat-icon-button  (click)="editStudent(student)"><mat-icon>edit</mat-icon></button></td>
+        <td><button mat-icon-button  (click)="deleteStudent(student.Id)"><mat-icon>delete</mat-icon></button></td>
+      </tr>
+    </table>
+  </div>
+</form>
+
+
