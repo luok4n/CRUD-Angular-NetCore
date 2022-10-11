@@ -1,5 +1,9 @@
 <form >
   <div  class="example-full-width">
+    <br>
+    <div class="example-button-row">
+      <button mat-raised-button style="left: 3%;" color="primary" (click)="createStudent()">Add new student <mat-icon>add_circle</mat-icon></button>
+    </div>
     <table >
       <tr>
         <th>id</th>
@@ -15,7 +19,7 @@
         <td>{{student.Id}}</td>
         <td>{{student.Username}}</td>
         <td>{{student.FirstName}}</td>
-        <td>{{student.SecondName}}</td>
+        <td>{{student.LastName}}</td>
         <td>{{student.Age}}</td>
         <td>{{student.Career}}</td>
         <td><button mat-icon-button  (click)="editStudent(student)"><mat-icon>edit</mat-icon></button></td>
@@ -23,6 +27,8 @@
       </tr>
     </table>
   </div>
+  
+  
 </form>
 
 

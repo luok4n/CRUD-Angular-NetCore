@@ -3,18 +3,18 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { FormGroup, Validators, FormArray, FormBuilder} from '@angular/forms';
 
 @Component({
-  selector: 'app-modal',
-  templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss']
+  selector: 'app-error',
+  templateUrl: './error.component.html',
+  styleUrls: ['./error.component.scss']
 })
 
-export class ModalComponent implements OnInit {
+export class ErrorComponent implements OnInit {
 
-  student: any;
+  message: string;
 
   constructor(
-    public dialogRef: MatDialogRef<ModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder) {
+    public dialogRef: MatDialogRef<ErrorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
     }
 
@@ -24,7 +24,7 @@ export class ModalComponent implements OnInit {
 
 
   ngOnInit() {
-    this.student = this.data.producto;
+    this.message = this.data.message;
   }
 
 }

@@ -16,9 +16,8 @@ import { TopnavComponent } from './components/topnav/topnav.component';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { StudentComponent } from './students/student/studnet.component';
 import { StudentsComponent } from './students/students.component';
-import { ModalComponent } from './students/student/modal/modal.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
     imports: [
@@ -26,17 +25,9 @@ import { ModalComponent } from './students/student/modal/modal.component';
         LayoutRoutingModule,
         MatToolbarModule,
         MatButtonModule,
-        MatSidenavModule,
-        MatTooltipModule,
-        MatIconModule,
-        MatInputModule,
-        MatMenuModule,
-        MatListModule,
-        MatExpansionModule,
-        MatCardModule,
         ReactiveFormsModule,
+        MatMenuModule,
         FormsModule,
-        MatButtonModule,
         MatSelectModule,
         MatDialogModule,
         MatIconModule,
@@ -46,18 +37,14 @@ import { ModalComponent } from './students/student/modal/modal.component';
         MatSidenavModule,
         MatListModule,
         MatExpansionModule,
-        MatSelectModule,
-        MatDialogModule
     ],
     exports: [
-      StudentComponent,
       StudentsComponent,
       ModalComponent
     ],
     declarations: [
       LayoutComponent,
       TopnavComponent,
-      StudentComponent,
       StudentsComponent,
       ModalComponent,
     ],

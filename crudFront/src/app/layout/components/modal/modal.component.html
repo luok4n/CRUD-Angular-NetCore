@@ -1,0 +1,31 @@
+<form [formGroup]="studentForm">
+  <div class="ex1">
+    <mat-form-field class="example-full-width" style="display:none" appearance="fill">
+      <mat-label>Id</mat-label>
+      <input matInput  formControlName="Id" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput  formControlName="FirstName" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput  formControlName="LastName" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Username</mat-label>
+      <input matInput  formControlName="Username" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Age</mat-label>
+      <input type="number" matInput  formControlName="Age" >
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Career</mat-label>
+      <input matInput  formControlName="Career" >
+    </mat-form-field>
+    <br>
+    <button mat-icon-button  (click)="saveStudent()"><mat-icon>save</mat-icon></button>
+    <button mat-icon-button  (click)="onNoClick()"><mat-icon>cancel</mat-icon></button>
+  </div>
+</form>
