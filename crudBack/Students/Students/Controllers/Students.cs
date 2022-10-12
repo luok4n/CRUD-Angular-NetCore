@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Students.utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,99 +16,101 @@ namespace Students.Controllers
         public StudentsController()
         {
         }
-
         
         [HttpGet]
         public IEnumerable<Student> Get()
         {
-
-            Random rnd = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Student
+            using (var context = new dbContext())
             {
-                Id = index,
-                Username = Method2(8),
-                FirstName = Method2(8),
-                LastName = Method2(8),
-                Age = rnd.Next(18, 50),
-                Career = Method2(8)
-            })
-            .ToArray();
+                var students = context.Students.OrderBy(s => s.Id).ToList();
+                return students;
+            }
         }
 
         [HttpGet("{id}")]
-        public Student Get(int id)
+        public ActionResult<Student> Get(int id)
         {
-
-            Random rnd = new Random();
-            return new Student
+            using (var context = new dbContext())
             {
-                Id = id,
-                Username = Method2(8),
-                FirstName = Method2(8),
-                LastName = Method2(8),
-                Age = rnd.Next(18, 50),
-                Career = Method2(8)
-            };
+                var student = context.Students.Where(s => s.Id.Equals(id)).FirstOrDefault();
+                if (student == null)
+                {
+                    return NotFound();
+                }
+                return student;
+            }
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Student> Delete(int id)
+        public ActionResult<Student> Delete(int? id)
         {
-            try
+            using (var context = new dbContext())
             {
-                Random rnd = new Random();
-                return new Student
+                if (id == null)
                 {
-                    Id = id,
-                    Username = Method2(8),
-                    FirstName = Method2(8),
-                    LastName = Method2(8),
-                    Age = rnd.Next(18, 50),
-                    Career = Method2(8)
-                };
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error deleting data");
+                    return NotFound();
+                }
+
+                var student = context.Students.Where(s => s.Id.Equals(id)).FirstOrDefault();
+                if (student == null)
+                {
+                    return NotFound();
+                }
+
+                context.Students.Remove(student);
+                context.SaveChanges();
+
+                return Ok(student);
             }
         }
 
         [HttpPut("{id:int}")]
         public ActionResult<Student> Update(int id, Student student)
         {
+            using (var context = new dbContext())
+            {
+                if (id != student.Id)
+                {
+                    return NotFound();
+                }
+                try
+                {
+                    context.Update(student);
+                    context.SaveChanges();
+                    return student;
+                }
+                catch (Exception)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error updating student");
+                }
 
-            try
-            {
-                return student;
             }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error updating data");
-            }
+            
         }
 
         [HttpPost]
         public ActionResult<Student> Create(Student student)
         {
-            try
+            using (var context = new dbContext())
             {
-                return student;
+                try
+                {
+                    if (student == null)
+                        return BadRequest();
+
+                    var createdStudent = context.Students.Add(student);
+                    context.SaveChanges();
+                    return Ok(student);
+                }
+                catch (Exception)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError,
+                        "Error creating student");
+                }
             }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Error creating data");
-            }
+                
         }
 
-
-            public static string Method2(int length)
-        {
-            Random random = new Random();
-            const string characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(characters, length).Select(s => s[random.Next(s.Length)]).ToArray());
-        }
     }
 }

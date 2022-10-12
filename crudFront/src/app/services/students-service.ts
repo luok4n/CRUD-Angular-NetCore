@@ -22,7 +22,7 @@ export class StudentService {
 
     updateStudent(student: any) {
         const head = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.put(this.baseUrl + "students", JSON.stringify(student), {headers: head});
+        return this.http.put(this.baseUrl + "students/" + student.Id, JSON.stringify(student), {headers: head});
     }
 
     createStudent(student: any) {
